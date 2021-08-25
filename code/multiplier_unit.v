@@ -4,12 +4,12 @@ module multiplier_unit
 (
 	input                clk,						//时钟输入
 	input                rst_n,          		//复位信号
-	input      			   x_o,						//被乘数奇数位
-	input      			   x_e,						//被乘数偶数位
-	input      			   y_o,						//乘数奇数位
-	input      			   y_e,						//乘数偶数位
-	input      			   add_up_in,				//上通道加法器输入
-	input      			   add_down_in,			//下通道加法器输入
+	input      	     x_o,						//被乘数奇数位
+	input      	     x_e,						//被乘数偶数位
+	input      	     y_o,						//乘数奇数位
+	input      	     y_e,						//乘数偶数位
+	input      	     add_up_in,				//上通道加法器输入
+	input      	     add_down_in,			//下通道加法器输入
 	output reg           x_o_out,             //x奇数输出
 	output reg           x_e_out,					//x偶数输出
 	output               add_up_out,          //上通道加法器输出
@@ -17,10 +17,10 @@ module multiplier_unit
 );
 
 reg                  c0, c1;							//全加器所用到触发器
-wire   					up0, up1;						//上通道的两个与门
-wire   					down0, down1;					//下通道的两个与门	
-wire						add_up0_s, add_up1_s, add_down0_s, add_down1_s, 
-							add_up0_c, add_up1_c, add_down0_c, add_down1_c;	//全加器的和与进位
+wire   		     up0, up1;						//上通道的两个与门
+wire   		     down0, down1;					//下通道的两个与门	
+wire		     add_up0_s, add_up1_s, add_down0_s, add_down1_s, 
+		     add_up0_c, add_up1_c, add_down0_c, add_down1_c;	//全加器的和与进位
 
 //四个与门编写
 assign						up0 = x_e_out & y_e;
