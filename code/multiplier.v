@@ -3,59 +3,59 @@
 module multiplier
 (  
 	input                clk_in,					//时钟输入
-	input						clk_en,					//时钟使能				
-	input                rst_n,          		//复位信号
-	input     [63:0]     x,							//被乘数
-	input     [63:0]     y,							//乘数
-	output    [127:0]    p							//乘积   
+	input		     clk_en,					//时钟使能				
+	input                rst_n,          		                //复位信号
+	input     [63:0]     x,						//被乘数
+	input     [63:0]     y,						//乘数
+	output    [127:0]    p						//乘积   
 );
 
 
 
-wire                    up_0, up_1;								//前两位数输入端上通道的两个与门
+wire                    up_0, up_1;						//前两位数输入端上通道的两个与门
 wire                    down_0, down_1;						//前两位数输入端下通道的两个与门
-wire							add_up_s, add_down_s, 
+wire								add_up_s, add_down_s, 
 								add_up_c, add_down_c;				//前两位数用到的全加器的和与进位
-wire							x_o_out0, x_o_out1, x_o_out2, x_o_out3, x_o_out4,
+wire								x_o_out0, x_o_out1, x_o_out2, x_o_out3, x_o_out4,
 								x_o_out5, x_o_out6, x_o_out7, x_o_out8, x_o_out9,
 								x_o_out10, x_o_out11, x_o_out12, x_o_out13, x_o_out14,
 								x_o_out15, x_o_out16, x_o_out17, x_o_out18, x_o_out19,
 								x_o_out20, x_o_out21, x_o_out22, x_o_out23, x_o_out24,
 								x_o_out25, x_o_out26, x_o_out27, x_o_out28, x_o_out29,
 								x_o_out30;															//例化所用的x奇数输出
-wire							x_e_out0, x_e_out1, x_e_out2, x_e_out3, x_e_out4,
+wire								x_e_out0, x_e_out1, x_e_out2, x_e_out3, x_e_out4,
 								x_e_out5, x_e_out6, x_e_out7, x_e_out8, x_e_out9,
 								x_e_out10, x_e_out11, x_e_out12, x_e_out13, x_e_out14,
 								x_e_out15, x_e_out16, x_e_out17, x_e_out18, x_e_out19,
 								x_e_out20, x_e_out21, x_e_out22, x_e_out23, x_e_out24,
 								x_e_out25, x_e_out26, x_e_out27, x_e_out28, x_e_out29,
 								x_e_out30;															//例化所用的x偶数输出
-wire							add_up_out0, add_up_out1, add_up_out2, add_up_out3, add_up_out4,
+wire								add_up_out0, add_up_out1, add_up_out2, add_up_out3, add_up_out4,
 								add_up_out5, add_up_out6, add_up_out7, add_up_out8, add_up_out9,
 								add_up_out10, add_up_out11, add_up_out12, add_up_out13, add_up_out14,
 								add_up_out15, add_up_out16, add_up_out17, add_up_out18, add_up_out19,
 								add_up_out20, add_up_out21, add_up_out22, add_up_out23, add_up_out24,
 								add_up_out25, add_up_out26, add_up_out27, add_up_out28, add_up_out29,
-								add_up_out30;													  //例化所用的上全加器输出
-wire							add_down_out0, add_down_out1, add_down_out2, add_down_out3, add_down_out4,
+								add_up_out30;								  //例化所用的上全加器输出
+wire								add_down_out0, add_down_out1, add_down_out2, add_down_out3, add_down_out4,
 								add_down_out5, add_down_out6, add_down_out7, add_down_out8, add_down_out9,
 								add_down_out10, add_down_out11, add_down_out12, add_down_out13, add_down_out14,
 								add_down_out15, add_down_out16, add_down_out17, add_down_out18, add_down_out19,
 								add_down_out20, add_down_out21, add_down_out22, add_down_out23, add_down_out24,
 								add_down_out25, add_down_out26, add_down_out27, add_down_out28, add_down_out29,
-								add_down_out30;												//例化所用的下全加器输出
+								add_down_out30;								//例化所用的下全加器输出
 								
-wire 							 clk;			
-wire							 temp_en;						   //门控时钟使能信号
+wire 				clk;			
+wire				temp_en;					//门控时钟使能信号
 
 wire		 [7:0]          cnt_out_1;							
-wire		 [7:0]			 cnt_in_1;
-reg		 [7:0] 			 cnt_out;							//输出所用计数器													
-reg		 [7:0]          cnt_in;								//输入所用计数器
+wire		 [7:0]		cnt_in_1;
+reg		 [7:0] 		cnt_out;					//输出所用计数器													
+reg		 [7:0]          cnt_in;						//输入所用计数器
 						
-reg                      x_even ,x_odd;					//上下通道的输入
-reg							 c;									//前两位数的全加器进位后的触发器
-reg							 x_odd_out;							//前两位数的下通道的移位
+reg                    		x_even ,x_odd;					//上下通道的输入
+reg				c;						//前两位数的全加器进位后的触发器
+reg				x_odd_out;					//前两位数的下通道的移位
 
 
 //门控时钟
@@ -278,18 +278,18 @@ end
 //31个乘法器单元的例化
 multiplier_unit	multiplier_unit0
 (
-	.clk				(clk),						//时钟输入
-	.rst_n			(rst_n),          		//复位信号
-	.x_o				(x_odd_out),				//被乘数奇数位
-	.x_e				(x_even),					//被乘数偶数位
-	.y_o				(y[3]),					//乘数奇数位
-	.y_e				(y[2]),					//乘数偶数位
-	.add_up_in		(add_down_s),				//上通道加法器输入
-	.add_down_in	(add_up_s),					//下通道加法器输入
+	.clk				(clk),				//时钟输入
+	.rst_n				(rst_n),          		//复位信号
+	.x_o				(x_odd_out),			//被乘数奇数位
+	.x_e				(x_even),			//被乘数偶数位
+	.y_o				(y[3]),				//乘数奇数位
+	.y_e				(y[2]),				//乘数偶数位
+	.add_up_in			(add_down_s),			//上通道加法器输入
+	.add_down_in			(add_up_s),			//下通道加法器输入
 	.x_o_out			(x_o_out0),             //x奇数输出
-	.x_e_out			(x_e_out0),					//x偶数输出
-	.add_up_out		(add_up_out0),          //上通道加法器输出
-	.add_down_out  (add_down_out0)         //下通道加法器输出	
+	.x_e_out			(x_e_out0),		//x偶数输出
+	.add_up_out			(add_up_out0),          //上通道加法器输出
+	.add_down_out  			(add_down_out0)         //下通道加法器输出	
 );
 
 multiplier_unit	multiplier_unit1
